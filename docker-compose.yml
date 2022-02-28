@@ -1,0 +1,97 @@
+version: "3"
+services:
+ mysql:
+  restart: always
+  image: mysql:5.7
+  ports:
+   - 3306:3306
+  volumes:
+   - /Users/demo/docker/lms/mysql/conf:/etc/mysql/conf.d
+   - /Users/demo/docker/lms/mysql/logs:/logs
+   - /Users/demo/docker/lms/mysql/data:/var/lib/mysql
+  environment:
+   MYSQL_ROOT_PASSWORD: 'root'
+   MYSQL_USER: 'test'
+   MYSQL_PASS: 'test'
+ 
+ redis:
+  restart: always
+  image: redis:3.2
+  ports:
+    - 6379:6379
+ 
+ sftp:
+  restart: always
+  image: atmoz/sftp #冒号后面要后空格
+  volumes:
+    - /Users/demo/sftp/upload/:/home/admin/ #冒号前面不能有空格
+  ports:
+    - "2022:22"
+  command: admin:123456:1001 #可以有多个用户）
+
+ rule:
+  restart: always
+  image: demo/rulemanager 
+  ports:
+   - 9090:9090
+  depends_on:
+   - mysql
+   - redis
+  links:
+   - redis
+   - mysql
+  volumes:
+   - /Users/demo/docker/lms/app/log:/opt/log
+
+ file:
+  restart: always
+  image: demo/filemanager 
+  ports:
+   - 7070:7070
+  depends_on:
+   - mysql
+   - redis
+   - sftp
+  links:
+   - redis
+   - mysql
+   - sftp
+  volumes:
+   - /Users/demo/docker/lms/app/log/:/opt/log/
+   - /Users/demo/docker/lms/file/tmp/:/opt/upload/tmp/
+   - /Users/demo/docker/lms/file/local/:/opt/upload/local/
+
+ web:
+  restart: always
+  image: demo/leavemanager 
+  ports:
+   - 8080:8080
+  depends_on:
+   - mysql
+   - redis
+   - sftp
+   - rule
+   - file
+  links:
+   - redis
+   - mysql
+   - sftp
+   - rule
+   - file
+  volumes:
+   - /Users/demo/docker/lms/app/log/:/opt/log/
+   - /Users/demo/docker/lms/file/local/:/opt/upload/local/
+   - /Users/demo/docker/lms/file/tmp/:/opt/upload/tmp/
+
+ vue:
+  restart: always
+  image: demp/easyoa-frontview
+  ports:
+   - 8081:8081
+  depends_on:
+   - web
+  volumes:
+   - /Users/demo/docker/lms/nginx/conf.d:/etc/nginx/conf.d/
+
+ 
+

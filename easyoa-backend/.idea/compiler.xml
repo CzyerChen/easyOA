@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="easyoa-leavemanager" />
+        <module name="easyoa-rulemanager" />
+        <module name="easyoa-common" />
+        <module name="easyoa-core" />
+        <module name="easyoa-filemanager" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="easyoa-common" options="-parameters" />
+      <module name="easyoa-core" options="-parameters" />
+      <module name="easyoa-filemanager" options="-parameters" />
+      <module name="easyoa-leavemanager" options="-parameters" />
+      <module name="easyoa-rulemanager" options="-parameters" />
+    </option>
+  </component>
+</project>

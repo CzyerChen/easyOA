@@ -1,0 +1,57 @@
+server:
+  port: 9090
+feign:
+  hystrix:
+    enabled: true
+  httpclient:
+    enabled: true
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          strategy: THREAD
+          thread:
+            timeoutInMilliseconds: 5000
+    threadpool:
+      default:
+        coreSize: 500 #缺省为10
+
+spring:
+  # 数据源
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/test_lms?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: test
+    password: test
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    platform: mysql
+    initialSize: 5
+    minIdle: 10
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 2000
+    minEvictableIdleTimeMillis: 600000
+    maxEvictableIdleTimeMillis: 900000
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+    asyncInit: true
+    filters: stat,wall,log4j
+    logSlowSql: true
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+
+app:
+  juhe:
+    key: f0ed5aeec83d6b66a934778ec27e7c62
+
+
+redisson:
+  config:
+    file: redisson-config.yaml

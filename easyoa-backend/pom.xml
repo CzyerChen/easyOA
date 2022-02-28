@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>easyoa</groupId>
+    <artifactId>easyoa-backend</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0.0</version>
+
+    <modules>
+        <module>easyoa-common</module>
+        <module>easyoa-leavemanager</module>
+        <module>easyoa-filemanager</module>
+        <module>easyoa-rulemanager</module>
+        <module>easyoa-core</module>
+    </modules>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.3.RELEASE</version>
+    </parent>
+
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+
+        <!-- 模块版本 -->
+        <common.version>1.0.0</common.version>
+        <authentification.version>1.0.0</authentification.version>
+        <leavemanager.version>1.0.0</leavemanager.version>
+        <filemanager.version>1.0.0</filemanager.version>
+        <rulemanager.version>1.0.0</rulemanager.version>
+
+        <!-- 外部依赖 -->
+        <log4j.version>1.2.17</log4j.version>
+        <mysql.version>5.7</mysql.version>
+        <mysql-connector.version>8.0.15</mysql-connector.version>
+        <spring-boot.version>2.0.4.RELEASE</spring-boot.version>
+        <druid.version>1.1.2</druid.version>
+        <swagger-ui.version>2.9.2</swagger-ui.version>
+        <easy-poi-version>3.0.1</easy-poi-version>
+        <!--
+                <fastjson.version></fastjson.version>
+        -->
+        <lombok.version>1.18.2</lombok.version>
+    </properties>
+
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <activatedProperties>dev</activatedProperties>
+                <project.packaging>jar</project.packaging>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>test</id>
+            <properties>
+                <activatedProperties>test</activatedProperties>
+                <project.packaging>jar</project.packaging>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <activatedProperties>prod</activatedProperties>
+                <project.packaging>jar</project.packaging>
+            </properties>
+        </profile>
+    </profiles>
+
+    <dependencyManagement>
+        <dependencies>
+            
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+
+    </dependencies>
+
+    <repositories>
+        <repository>
+            <id>nexus-aliyun</id>
+            <name>Nexus aliyun</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+        </repository>
+    </repositories>
+
+
+</project>
